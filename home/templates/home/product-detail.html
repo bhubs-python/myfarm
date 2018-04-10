@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %} MyFarm | Product Detail {% endblock %}
+
+
+{% block body %}
+    <div class="row" style="margin-top: 20px; margin-bottom: 20px;">
+        <div class="col s12 m10 offset-m1 l10 offset-l1 white" style=" padding: 20px;">
+            <div class="row">
+                <div class="col m4">
+                    <img src="{{ product.product_image.url }}" height="100%" width="100%">
+                </div>
+
+                <div class="col m4">
+                    <h5 style="color: red;">${{ product.price }} / per unit</h5>
+
+                    <p>Contact Period: {{ product.contact_period }} months</p>
+
+                    <p>Expected Return: {{ product.expected_return }}% per {{ product.contact_period }} months </p>
+
+                    <p>Harvest Period: {{ product.harvest_period }} month</p>
+
+                    <a href="#" class="waves-effect waves-light btn green white-text" style="margin-top: 20px;">Buy Now</a><br>
+                    <a href="#" class="waves-effect waves-light btn green white-text" style="margin-top: 20px;">Follow This Farm</a>
+                </div>
+
+                <div class="col m4" style="border: 1px solid red;">
+                    related product section
+                </div>
+            </div>
+            <!--end product short detail-->
+
+            <div class="row" style="margin-top: 50px; padding: 20px;">
+                <h5>Farm Description</h5>
+                <p class="col s12 m12 l12 divider"></p>
+
+                <p style="margin-top: 40px; padding: 10px;">
+                    {{ product.description }}
+                </p>
+
+
+                <h5 style="margin-top: 40px;">What does my investment covers?</h5>
+                <p class="col s12 m12 l12 divider"></p>
+
+                <p style="margin-top: 40px; padding: 10px;">
+                    {{ product.extra }}
+                </p>
+
+
+                <h5 style="margin-top: 40px;">About Farm</h5>
+                <p class="col s12 m12 l12 divider"></p>
+
+                <p style="margin-top: 40px;"><b>Farm Size:</b> {{ product.farm_size }} Acres</p>
+                <p style=""><b>Farm Location:</b> {{ product.farm_location | title }}</p>
+                <p style=""><b>Product Type:</b> {{ product.product_type | title }}</p>
+
+                <p style=""><b>Farm Visits:</b>
+                    This can be arranged for farm sponsor only, please send a mail to <b>{{ product.farm_email }}</b>
+                    with the subject "Farm Visit".
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
