@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %} MyFarm | Profile Edit {% endblock %}
+
+
+{% block body %}
+    <div class="row" style="margin-bottom: 20px; margin-top: 20px;">
+        <div class="col s12 m8 offset-m2 l8 offset-l2 white" style="">
+            <div class="col s12 m12 l12" style="margin-bottom: 30px; margin-top: 0px;">
+                <!--sign up form-->
+                <div class="col s12 m12 l12 white center-align" style="">
+                    <h4 class="col s12 m12 l12" style="margin-top: 40px;">Edit Profile</h4>
+
+                    <p class="col s12 m12 l12 divider" style="margin-top: 30px;"></p>
+
+                    <form class="col s12 m10 offset-m1 l10 offset-l1" method="post" enctype="multipart/form-data" style="margin-top: 50px; margin-bottom: 50px;">
+                        {% csrf_token %}
+
+                        <div class="input-field col s12 m6 l6">
+                            <i class="material-icons prefix">accessibility</i>
+                            {{ profile_edit_form.job_title }}
+                            <label for="icon_prefix white-text">Job title</label>
+                        </div>
+
+                        <div class="input-field col s12 m6 l6">
+                            <i class="material-icons prefix">account_balance</i>
+                            {{ profile_edit_form.company }}
+                            <label for="icon_prefix white-text">Company</label>
+                        </div>
+
+                        <div style="" class="input-field col s12 m12 l12">
+                            <i class="material-icons prefix">location_on</i>
+                            {{ profile_edit_form.address }}
+                            <label for="icon_prefix white-text">Address</label>
+                        </div>
+
+                        <div class="input-field col s12 m6 l6">
+                            <i class="material-icons prefix">hotel</i>
+                            {{ profile_edit_form.suit_floor_apt }}
+                            <label for="icon_prefix white-text">Suite / Floor / Apt.#</label>
+                        </div>
+
+                        <div class="input-field col s12 m6 l6">
+                            <i class="material-icons prefix">my_location</i>
+                            {{ profile_edit_form.city }}
+                            <label for="icon_prefix white-text">City</label>
+                        </div>
+
+                        <div class="input-field col s12 m6 l6">
+                            <i class="material-icons prefix">my_location</i>
+                            {{ profile_edit_form.state }}
+                            <label for="icon_prefix white-text">State</label>
+                        </div>
+
+                        <div class="input-field col s12 m6 l6">
+                            <i class="material-icons prefix">my_location</i>
+                            {{ profile_edit_form.zip_postal_code }}
+                            <label for="icon_prefix white-text">Zip / Postal Code</label>
+                        </div>
+
+                        <div class="input-field col s12 m6 l6">
+                            <i class="material-icons prefix">language</i>
+                            {{ profile_edit_form.country }}
+                            <label for="icon_prefix white-text">Country</label>
+                        </div>
+
+                        <div class="input-field col s12 m6 l6">
+                            <i class="material-icons prefix">call</i>
+                            {{ profile_edit_form.phone }}
+                            <label for="icon_prefix white-text">Phone</label>
+                        </div>
+
+                        {% if profile_edit_form.non_field_errors %}
+                            {% for error in profile_edit_form.non_field_errors %}
+                                <div class="col s12 m10 offset-m1 l10 offset-l1 valign-wrapper" style="margin-top: 20px; background-color: red; height: 40px;">
+                                    <p style="color: white; font-size: 16px;">
+                                        {{ error }}
+                                    </p>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        <div class="col s12 m12 l12" style="margin-bottom: 20px; margin-top: 20px;">
+                            <button class="btn waves-effect waves-light black" type="submit" style="">Update
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <!--end sign up form-->
+            </div>
+        </div>
+    </div>
+    <!--end sign up form-->
+
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %} MyFarm | Profile {% endblock %}
+
+
+{% block body %}
+
+    <div class="row" style="margin-bottom: 20px; margin-top: 20px;">
+        <div class="col s12 m8 offset-m2 l8 offset-l2 white" style="">
+            <div class="col s12 m12 l12" style="margin-top: 40px;">
+                <div class="col m2">
+                    {% if request.user.photo %}
+                    <img src="{{ request.user.photo.url }}" width="100%" height="100%">
+                    {% else %}
+                    <img src="/media/no-img.jpg" width="100%" height="100%">
+                    {% endif %}
+                </div>
+
+                <div class="col m8" style="">
+                    <p style="font-size: 18px;">{{ request.user.username | title }}</p>
+                    <p style="font-size: 14px;">@mail : {{ request.user.email }}</p>
+
+                    {% if request.user.phone %}
+                        <p style="font-size: 14px;">@call : {{ request.user.phone }}</p>
+                    {% endif %}
+
+                    {% if request.user.is_staff or request.user.is_superuser %}
+                        <p style="font-size: 14px;">@status : <span style="color: blue;">Staff</span></p>
+                    {% endif %}
+
+                    {% if request.user.is_active %}
+                        <p style="font-size: 14px;">@profile : <span style="color: green;">Active</span></p>
+                    {% else %}
+                        <p style="font-size: 14px;">@profile : <span style="color: red;">Deactive</span></p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col s12 m12 l12" style="margin-bottom: 50px; margin-top: 40px;">
+                <p class="left" style="font-size: 22px;">Basic Information</p>
+
+                <a href="{% url 'account:profile-edit' %}" class="right" style="font-size: 14px;">edit profile</a>
+                <p class="col s12 m12 l12 divider" style="margin-top: 5px;"></p>
+
+                <div class="col s12 m12 l12" style="padding: 10px; margin-top: 5px;">
+                    <p>Username : {{ request.user.username | title }}</p>
+                    <p>Email : {{ request.user.email }}</p>
+                    {% if request.user.phone %}
+                        <p>Phone : {{ request.user.phone }}</p>
+                    {% endif %}
+
+                    <a href="{% url 'account:change-password' %}" class="waves-effect waves-light btn green white-text" style="margin-top: 20px;">Change password</a>
+
+                    {% if request.user.job_title or request.user.company or request.user.address or request.user.suit_floor_apt or request.user.city or request.user.state or request.user.zip_postal_code or request.user.country %}
+                        <p class="col s12 m12 l12 divider" style="margin-top: 20px; margin-bottom: 10px;"></p>
+                    {% endif %}
+
+                    {% if request.user.job_title %}
+                        <p>Job title : {{ request.user.job_title | title }}</p>
+                    {% endif %}
+
+                    {% if request.user.company %}
+                        <p>Company : {{ request.user.company | title }}</p>
+                    {% endif %}
+
+                    {% if request.user.address %}
+                        <p>Address : {{ request.user.address }}</p>
+                    {% endif %}
+
+                    {% if request.user.suit_floor_apt %}
+                        <p>Suit floor / apartment : {{ request.user.suit_floor_apt }}</p>
+                    {% endif %}
+
+                    {% if request.user.city %}
+                        <p>City : {{ request.user.city | title }}</p>
+                    {% endif %}
+
+                    {% if request.user.state %}
+                        <p>State : {{ request.user.state }}</p>
+                    {% endif %}
+
+                    {% if request.user.zip_postal_code %}
+                        <p>Zip / postal code : {{ request.user.zip_postal_code }}</p>
+                    {% endif %}
+
+                    {% if request.user.country %}
+                        <p>Country : {{ request.user.country }}</p>
+                    {% endif %}
+
+                    {% if request.user.is_active or request.user.is_staff or request.user.is_superuser %}
+                        <p class="col s12 m12 l12 divider" style="margin-top: 20px; margin-bottom: 10px;"></p>
+                    {% endif %}
+
+                    {% if request.user.is_staff or request.user.is_superuser %}
+                        <p style="font-size: 14px;">Status : <span style="color: blue;">Staff</span></p>
+                    {% endif %}
+
+                    {% if request.user.is_active %}
+                        <p style="font-size: 14px;">Profile : <span style="color: green;">Active</span></p>
+                    {% else %}
+                        <p style="font-size: 14px;">Profile : <span style="color: red;">Deactive</span></p>
+                    {% endif %}
+
+                    <a href="{% url 'account:sign-out' %}" class="waves-effect waves-light btn red white-text" style="margin-top: 20px;">Sign out</a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end sign up form-->
+
+{% endblock %}

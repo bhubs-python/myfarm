@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyFarm | Sign up</title>
+
+    {% load staticfiles %}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'account/style/materialize.min.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/css?family=Sacramento" rel="stylesheet">
+
+    <style>
+        .container{
+            min-width: 100%;
+        }
+
+        .container > .row {
+            margin: 0;
+        }
+
+
+        .container > .row > .col {
+            padding: 0;
+        }
+
+        *{
+            padding: 0px;
+            margin: 0px;
+            font-family: 'myFont';
+        }
+
+        @font-face {
+            font-family: 'myFont';
+            src: url('/static/account/fonts/myFont.ttf');
+        }
+    </style>
+</head>
+
+<body class="#eceff1 blue-grey lighten-5">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m8 offset-m2 l8 offset-l2">
+                <!--nav-->
+                <div class="col s12 m12 l12 black white-text valign-wrapper" style="min-height: 100px;">
+                    <div class="col m6" style="">
+                        <p style="font-size: 35px;"><b>MyFarm</b></p>
+                    </div>
+
+                    <div class="col m6 right-align" style="">
+                        <p style="font-size: 25px; color: red; margin-top: 30px;">Sign up</p>
+                    </div>
+                </div>
+                <!--end nav-->
+
+                <!--sign up form-->
+                <div class="col s12 m12 l12 white center-align" style="">
+                    <h4 class="col s12 m12 l12" style="margin-top: 40px;">Sign up</h4>
+
+                    <p class="col s12 m12 l12 divider" style="margin-top: 30px;"></p>
+
+                    <form class="col s12 m10 offset-m1 l10 offset-l1" method="post" style="margin-top: 50px; margin-bottom: 50px;">
+                        {% csrf_token %}
+
+                        <div class="input-field col s12 m6 l6">
+                            <i class="material-icons prefix">account_circle</i>
+                            {{ sign_up_form.username }}
+                            <label for="icon_prefix white-text">User Name</label>
+                        </div>
+
+                        <div class="input-field col s12 m6 l6">
+                            <i class="material-icons prefix">email</i>
+                            {{ sign_up_form.email }}
+                            <label for="icon_prefix white-text">Email</label>
+                        </div>
+
+                        <div class="input-field col s12 m6 l6">
+                            <i class="material-icons prefix">lock</i>
+                            {{ sign_up_form.password1 }}
+                            <label for="icon_prefix white-text">Password</label>
+                        </div>
+
+                        <div class="input-field col s12 m6 l6">
+                            <i class="material-icons prefix">refresh</i>
+                            {{ sign_up_form.password2 }}
+                            <label for="icon_prefix white-text">Retype Password</label>
+                        </div>
+
+
+                        <div class="input-field col s12 m6 l6">
+                            <i class="material-icons prefix">accessibility</i>
+                            {{ sign_up_form.job_title }}
+                            <label for="icon_prefix white-text">Job title</label>
+                        </div>
+
+                        <div class="input-field col s12 m6 l6">
+                            <i class="material-icons prefix">account_balance</i>
+                            {{ sign_up_form.company }}
+                            <label for="icon_prefix white-text">Company</label>
+                        </div>
+
+                        <div style="" class="input-field col s12 m12 l12">
+                            <i class="material-icons prefix">location_on</i>
+                            {{ sign_up_form.address }}
+                            <label for="icon_prefix white-text">Address</label>
+                        </div>
+
+                        <div class="input-field col s12 m6 l6">
+                            <i class="material-icons prefix">hotel</i>
+                            {{ sign_up_form.suit_floor_apt }}
+                            <label for="icon_prefix white-text">Suite / Floor / Apt.#</label>
+                        </div>
+
+                        <div class="input-field col s12 m6 l6">
+                            <i class="material-icons prefix">my_location</i>
+                            {{ sign_up_form.city }}
+                            <label for="icon_prefix white-text">City</label>
+                        </div>
+
+                        <div class="input-field col s12 m6 l6">
+                            <i class="material-icons prefix">my_location</i>
+                            {{ sign_up_form.state }}
+                            <label for="icon_prefix white-text">State</label>
+                        </div>
+
+                        <div class="input-field col s12 m6 l6">
+                            <i class="material-icons prefix">my_location</i>
+                            {{ sign_up_form.zip_postal_code }}
+                            <label for="icon_prefix white-text">Zip / Postal Code</label>
+                        </div>
+
+                        <div class="input-field col s12 m6 l6">
+                            <i class="material-icons prefix">language</i>
+                            {{ sign_up_form.country }}
+                            <label for="icon_prefix white-text">Country</label>
+                        </div>
+
+                        <div class="input-field col s12 m6 l6">
+                            <i class="material-icons prefix">call</i>
+                            {{ sign_up_form.phone }}
+                            <label for="icon_prefix white-text">Phone</label>
+                        </div>
+
+                        {% if sign_up_form.non_field_errors %}
+                            {% for error in sign_up_form.non_field_errors %}
+                                <div class="col s12 m10 offset-m1 l10 offset-l1 valign-wrapper" style="margin-top: 20px; background-color: red; height: 40px;">
+                                    <p style="color: white; font-size: 16px;">
+                                        {{ error }}
+                                    </p>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        <p class="col s12 m10 offset-m1" style="margin-top: 20px;">
+                            Already have an account?
+                            <a href="{% url 'account:sign-in' %}">Sign in</a>
+                        </p>
+
+                        <div class="col s12 m12 l12" style="margin-bottom: 20px; margin-top: 20px;">
+                            <button class="btn waves-effect waves-light black" type="submit" style="">Sign up
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <!--end sign up form-->
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="{% static 'account/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'account/js/materialize.min.js' %}"></script>
+</body>
+</html>

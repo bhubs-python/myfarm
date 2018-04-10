@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    {% load staticfiles %}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'account/style/materialize.min.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/css?family=Sacramento" rel="stylesheet">
+
+    <style>
+        .container{
+            min-width: 100%;
+        }
+
+        .container > .row {
+            margin: 0;
+        }
+
+
+        .container > .row > .col {
+            padding: 0;
+        }
+
+        *{
+            padding: 0px;
+            margin: 0px;
+            font-family: 'myFont';
+        }
+
+        @font-face {
+            font-family: 'myFont';
+            src: url('/static/account/fonts/myFont.ttf');
+        }
+
+        .top-dropdown-menu{
+            color: white;
+            font-size: 18px;
+        }
+
+        .top-dropdown-menu:hover{
+            color: gray;
+            cursor: pointer;
+        }
+
+        footer a:hover{
+            text-decoration: underline;
+        }
+    </style>
+
+    {% block style %}
+    {% endblock %}
+</head>
+
+<body class="#eceff1 blue-grey lighten-5">
+    <div class="container">
+        <!--main menu-->
+        <div class="col s12 m12 l12 valign-wrapper navbar-fixed" style="">
+            <nav class="z-depth-0 black white-text" style="">
+                <div class="nav-wrapper">
+                    <div class="left">
+                        <a href="{% url 'home:home' %}">
+                            <b style="font-size: 25px; padding: 20px;">MyFarm</b>
+                        </a>
+                    </div>
+
+                    <ul class="left" style="margin-left: 30px;">
+                        <!-- Dropdown Trigger -->
+                        <li><a class="dropdown-button" href="#!" data-activates="dropdown-charts">CHARTS</a></li>
+                        <li><a class="dropdown-button" href="#!" data-activates="dropdown-news">NEWS</a></li>
+                        <li><a class="dropdown-button" href="#!">VIDEO</a></li>
+                        <li><a class="dropdown-button" href="#!">PHOTOS</a></li>
+                        <li><a class="dropdown-button" href="#!">BUSINESS</a></li>
+                    </ul>
+
+                    <div class="right" style="margin-right: 30px;">
+                        <form method="post" action="{% url 'home:search' %}">
+                            {% csrf_token %}
+                            <div class="input-field col s12 m12 l12">
+                                <i class="material-icons prefix">search</i>
+                                <input type="text" name="query_text">
+                                <label for="icon_prefix white-text">Search</label>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="right">
+                        {% if user.is_authenticated %}
+                            <a style="padding: 0px;" href="{% url 'account:profile' %}">{{ request.user.username | title }}</a>
+                            <a style="padding: 20px;" href="{% url 'account:sign-out' %}">Sign out</a>
+                        {% else %}
+                            <a style="padding: 20px;" href="{% url 'account:sign-in' %}">Sign in</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </nav>
+
+            <!--dropdown contents-->
+            <div id="">
+                <ul id='dropdown-charts' class='dropdown-content' style="">
+                    <li><a style="font-size: 12px;" href="">Hot 100</a></li>
+                    <li><a style="font-size: 12px;" href="">Billboard 200</a></li>
+                </ul>
+
+
+                <ul id='dropdown-news' class='dropdown-content' style="">
+                    <li><a style="font-size: 12px;" href="">Fastivals</a></li>
+                    <li><a style="font-size: 12px;" href="">Pride</a></li>
+                </ul>
+            </div>
+            <!--end dropdown content-->
+
+        </div>
+        <!--end main menu-->
+
+
+        {% block body %}
+        {% endblock %}
+
+
+
+        <footer class="row black white-text">
+            <div class="col s12 m12 l12" style="">
+                <div class="col s12 m10 offset-m1" style="margin-top: 50px;">
+                    <!--poster-->
+                    <div class="col m3 valign-wrapper" style="height: 350px; border: 1px solid white;">
+                        poster here
+                    </div>
+                    <!--end poster-->
+
+                    <!--footer link-->
+                    <div class="col m9" style="">
+                        <div class="col s3 left-align" style="">
+                            <b style="font-size: 16px; color: red;">Magazine</b>
+
+                            <p style="margin-top: 20px;">
+                                <a href="#">Customer Service</a>
+                            </p>
+
+                            <p style="">
+                                <a href="#">Subscribe</a>
+                            </p>
+
+                            <p style="">
+                                <a href="#">Buy this issue</a>
+                            </p>
+
+                            <b class="col s12 m12 l12" style="padding: 0px; font-size: 16px; color: red; margin-top: 10px; margin-bottom: 10px;">MyFarm biz</b>
+
+                            <p style="">
+                                The online extension of MyFarm Magazine, MyFarm is the essential online destination for the music business.
+                            </p>
+
+                            <p style="margin-top: 10px; font-size: 18px;">
+                                <a href="#">Learn more</a>
+                            </p>
+
+                        </div>
+
+
+                        <div class="col s3 left-align" style="">
+                            <b style="font-size: 16px; color: red;">Sharing</b>
+
+                            <p style="margin-top: 20px;">
+                                <a class="white-text" href="#">Facebook</a>
+                            </p>
+
+                            <p style="">
+                                <a class="white-text" href="#">Twitter</a>
+                            </p>
+
+                            <p style="">
+                                <a class="white-text" href="#">Google+</a>
+                            </p>
+
+                            <p style="">
+                                <a class="white-text" href="#">YouTube</a>
+                            </p>
+
+                            <p style="">
+                                <a class="white-text" href="#">Instagram</a>
+                            </p>
+
+                            <p style="">
+                                <a class="white-text" href="#">Tumblr</a>
+                            </p>
+
+                            <p style="">
+                                <a class="white-text" href="#">Pinterest</a>
+                            </p>
+
+                            <p style="">
+                                <a class="white-text" href="#">Spotify</a>
+                            </p>
+
+                            <p style="">
+                                <a class="white-text" href="#">Newsletter</a>
+                            </p>
+
+                            <p style="">
+                                <a class="white-text" href="#">Biz Newsletter</a>
+                            </p>
+                        </div>
+
+
+
+                        <div class="col s3 left-align" style="">
+                            <b style="font-size: 16px; color: red;">Exploring</b>
+
+                            <p style="margin-top: 20px;">
+                                <a class="white-text" href="#">Shop</a>
+                            </p>
+
+                            <p style="">
+                                <a class="white-text" href="#">News Archive</a>
+                            </p>
+
+                            <p style="">
+                                <a class="white-text" href="#">Photos Archive</a>
+                            </p>
+
+                            <p style="">
+                                <a class="white-text" href="#">Videos Archive</a>
+                            </p>
+
+                            <p style="">
+                                <a class="white-text" href="#">Magazine Archive</a>
+                            </p>
+
+                            <p style="">
+                                <a class="white-text" href="#">Charts Archive</a>
+                            </p>
+
+                        </div>
+
+
+                        <div class="col s3 left-align" style="">
+                            <b style="font-size: 16px; color: red;">Information</b>
+
+                            <p style="margin-top: 20px;">
+                                <a class="white-text" href="#">Jobs</a>
+                            </p>
+
+                            <p style="">
+                                <a class="white-text" href="#">Charts Licensing</a>
+                            </p>
+
+                            <p style="">
+                                <a class="white-text" href="#">Events</a>
+                            </p>
+
+                            <p style="">
+                                <a class="white-text" href="#">Contact Us</a>
+                            </p>
+
+                            <p style="">
+                                <a class="white-text" href="#">Sitemap</a>
+                            </p>
+
+                            <p style="">
+                                <a class="white-text" href="#">FAQ</a>
+                            </p>
+
+                            <p style="">
+                                <a class="white-text" href="#">Feedback</a>
+                            </p>
+
+                            <p style="">
+                                <a class="white-text" href="#">Lyrics</a>
+                            </p>
+
+                            <div class="col s12 m12 l12 left-align" style="margin-top: 40px;">
+                                <b style="font-size: 18px;">MyFarm</b>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!--end footer link-->
+                </div>
+
+                <div class="col s12 m10 offset-m1" style="margin-top: 20px; margin-bottom: 50px;">
+                    <div class="col m4" style="font-size: 13px;">
+                        &copy; 2018 MyFarm. All Rights Reserved.
+                    </div>
+
+                    <div class="col m8" style="font-size: 13px;">
+                        <span><a class="white-text" href="#">Terms of Use</a> | </span>
+                        <span><a class="white-text" href="#">Privacy Policy</a> | </span>
+                        <span><a class="white-text" href="#">About Our Ads</a>  </span>
+                        <span><a class="" href="#">Advertising</a></span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+    </div>
+
+    <script type="text/javascript" src="{% static 'account/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'account/js/materialize.min.js' %}"></script>
+
+    {% block js %}
+    {% endblock %}
+</body>
+</html>
+
+<script>
+    $(document).ready(function(){
+        $('.dropdown-trigger').dropdown();
+    });
+
+    $('.dropdown-button').dropdown({
+          inDuration: 300,
+          outDuration: 225,
+          constrainWidth: false, // Does not change width of dropdown to that of the activator
+          hover: true, // Activate on hover
+          gutter: 0, // Spacing from edge
+          belowOrigin: true, // Displays dropdown below the button
+          alignment: 'left', // Displays dropdown with edge aligned to the left of button
+          stopPropagation: false // Stops event propagation
+        }
+    );
+</script>
