@@ -70,7 +70,7 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'myfarm',
+        'NAME': 'my_farm',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': 'localhost',
