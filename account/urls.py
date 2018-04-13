@@ -10,4 +10,7 @@ urlpatterns = [
     url(r'^profile/$', views.Profile.as_view(), name='profile'),
     url(r'^profile/edit/$', views.ProfileEdit.as_view(), name='profile-edit'),
     url(r'^change-password/$', views.ChangePassword.as_view(), name='change-password'),
+
+    #api
+    url(r'^api/user-profile/$', views.UserProfileAPI.as_view(), name='user-profile-api'),
 ]

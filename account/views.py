@@ -2,6 +2,12 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.views import login, logout
 from django.contrib.auth import update_session_auth_hash
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from django.http import JsonResponse
+from django.db.models import Q
+
+from . import serializers
 
 from . import models
 from . import forms
@@ -146,4 +152,36 @@ class ChangePassword(View):
         }
 
         return render(request, self.template_name, variables)
+
+
+
+
+
+#=====================================================================================================
+#=====================================================================================================
+#                                     api
+#=====================================================================================================
+#=====================================================================================================
+
+
+#api view
+class UserProfileAPI(APIView):
+    def get(self, request):
+        if request.GET.get("username"):
+            username = request.GET.get("username")
+
+            userObj = models.UserProfile.objects.filter(username=username)
+
+            serializer = None
+            x = 'User authorized'
+
+            if request.user.is_authenticated() and request.user.username == username:
+                serializer = serializers.UserProfileSerializer(userObj, many=True).data
+            else:
+                x = 'Error authentication'
+
+            return Response({
+                'data': serializer,
+                'x': x,
+            })
 

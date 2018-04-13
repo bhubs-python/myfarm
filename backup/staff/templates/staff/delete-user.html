@@ -1,0 +1,43 @@
+{% extends 'staff-base.html' %}
+
+{% block title %} MyFarm | Staff {% endblock %}
+
+{% block style %}
+    <style>
+        .table_data a:hover{
+            text-decoration: underline;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col m8 offset-m2 white center-align" style="height: 500px; padding: 20px; margin-top: 20px; margin-bottom: 20px;">
+            <!--user table-->
+            <div class="col s12 m12 l12" style="">
+                <h4 class="col s12 m12 l12" style="margin-top: 40px;">
+                    Delete Account
+                </h4>
+
+                <p class="col s12 m12 l12 divider" style="margin-top: 30px;"></p>
+
+                <p class="col s12 m12 l12" style="margin-top: 30px;">
+                    {% for user in users %}
+                        Username: {{ user.username | title }}<br>
+                        Email: {{ user.email }}<br>
+                    {% endfor %}
+
+                    Are sure want to delete this account?
+                </p>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" name="yes" value="yes" class="waves-effect waves-light btn red white-text" style="margin-top: 20px;">Yes</button>
+                    <button type="submit" name="no" value="no" class="waves-effect waves-light btn red white-text" style="margin-top: 20px;">No</button>
+                </form>
+            </div>
+            <!--end user table-->
+        </div>
+    </div>
+
+{% endblock %}

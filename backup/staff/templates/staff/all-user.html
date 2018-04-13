@@ -1,0 +1,56 @@
+{% extends 'staff-base.html' %}
+
+{% block title %} MyFarm | Staff {% endblock %}
+
+{% block style %}
+    <style>
+        .table_data a:hover{
+            text-decoration: underline;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col m8 offset-m2 white" style="height: 500px; padding: 20px; margin-top: 20px; margin-bottom: 20px;">
+            <!--user table-->
+            <div class="col s12 m12 l12" style="border: 1px solid red;">
+                <table class="highlight centered responsive-table">
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Profile</th>
+                            <th>Operation</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="table_data">
+                        {% for all_user in all_users %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ all_user.username | title }}</td>
+                            <td>{{ all_user.email }}</td>
+
+                            <td>
+                                {% if all_user.is_active %}
+                                    <span style="color: green;">Active</span>
+                                {% else %}
+                                    <span style="color: red;">Deactive</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <a href="{% url 'staff:user-detail' user_id=all_user.id %}">View</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!--end user table-->
+        </div>
+    </div>
+
+{% endblock %}
