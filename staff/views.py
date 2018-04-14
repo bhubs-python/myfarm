@@ -29,15 +29,13 @@ class Home(StaffPermissionMixin, View):
     template_name = 'staff/index.html'
 
     def get(self, request):
+        change_status_sidebar = 'dashboard'
 
         variables = {
-
+            'change_status_sidebar': change_status_sidebar,
         }
 
         return render(request, self.template_name, variables)
-
-    def post(self, request):
-        pass
 
 
 #staff home
