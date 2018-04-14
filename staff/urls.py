@@ -5,6 +5,8 @@ from . import views
 urlpatterns = [
     url(r'^$', views.Home.as_view(), name='home'),
 
+    #user management url
+    url(r'^user/home/$', views.UserHome.as_view(), name='user-home'),
     url(r'^user/all/$', views.AllUser.as_view(), name='all-user'),
     url(r'^user/detail/(?P<user_id>[0-9]+)/$', views.UserDetail.as_view(), name='user-detail'),
 
@@ -16,7 +18,7 @@ urlpatterns = [
 
 
     #product block start
-
+    url(r'^product/home/$', views.ProductHome.as_view(), name='product-home'),
     url(r'^product/add/$', views.ProductAdd.as_view(), name='product-add'),
 
     #product block end

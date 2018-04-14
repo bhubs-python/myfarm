@@ -40,6 +40,19 @@ class Home(StaffPermissionMixin, View):
         pass
 
 
+#staff home
+class UserHome(StaffPermissionMixin, View):
+    template_name = 'staff/user-home.html'
+
+    def get(self, request):
+        change_status_sidebar = 'user-management'
+
+        variables = {
+            'change_status_sidebar': change_status_sidebar,
+        }
+
+        return render(request, self.template_name, variables)
+
 
 #all user
 class AllUser(StaffPermissionMixin, View):
@@ -50,9 +63,12 @@ class AllUser(StaffPermissionMixin, View):
         all_users = account_model.UserProfile.objects.all()
         all_users_count = account_model.UserProfile.objects.all().count()
 
+        change_status_sidebar = 'user-management'
+
         variables = {
             'all_users': all_users,
             'all_users_count': all_users_count,
+            'change_status_sidebar': change_status_sidebar,
         }
 
         return render(request, self.template_name, variables)
@@ -70,9 +86,11 @@ class UserDetail(StaffPermissionMixin, View):
 
         get_object_or_404(account_model.UserProfile, pk=user_id)
         users = account_model.UserProfile.objects.filter(id=user_id)
+        change_status_sidebar = 'user-management'
 
         variables = {
             'users': users,
+            'change_status_sidebar': change_status_sidebar,
         }
 
         return render(request, self.template_name, variables)
@@ -89,10 +107,12 @@ class ActiveDeactiveUser(StaffPermissionMixin, View):
 
         get_object_or_404(account_model.UserProfile, pk=user_id)
         users = account_model.UserProfile.objects.filter(id=user_id)
+        change_status_sidebar = 'user-management'
 
         variables = {
             'users': users,
             'profile_status': profile_status,
+            'change_status_sidebar': change_status_sidebar,
         }
 
         return render(request, self.template_name, variables)
@@ -100,6 +120,7 @@ class ActiveDeactiveUser(StaffPermissionMixin, View):
     def post(self, request, profile_status, user_id):
         get_object_or_404(account_model.UserProfile, pk=user_id)
         users = account_model.UserProfile.objects.filter(id=user_id)
+        change_status_sidebar = 'user-management'
 
         if request.POST.get('yes') == 'yes':
             for user in users:
@@ -118,6 +139,7 @@ class ActiveDeactiveUser(StaffPermissionMixin, View):
         variables = {
             'users': users,
             'profile_status': profile_status,
+            'change_status_sidebar': change_status_sidebar,
         }
 
         return render(request, self.template_name, variables)
@@ -133,9 +155,11 @@ class DeleteUser(StaffPermissionMixin, View):
 
         get_object_or_404(account_model.UserProfile, pk=user_id)
         users = account_model.UserProfile.objects.filter(id=user_id)
+        change_status_sidebar = 'user-management'
 
         variables = {
             'users': users,
+            'change_status_sidebar': change_status_sidebar,
         }
 
         return render(request, self.template_name, variables)
@@ -143,6 +167,7 @@ class DeleteUser(StaffPermissionMixin, View):
     def post(self, request, user_id):
         get_object_or_404(account_model.UserProfile, pk=user_id)
         users = account_model.UserProfile.objects.filter(id=user_id)
+        change_status_sidebar = 'user-management'
 
         if request.POST.get('yes') == 'yes':
             users.delete()
@@ -153,6 +178,7 @@ class DeleteUser(StaffPermissionMixin, View):
 
         variables = {
             'users': users,
+            'change_status_sidebar': change_status_sidebar,
         }
 
         return render(request, self.template_name, variables)
@@ -167,12 +193,14 @@ class EditUser(StaffPermissionMixin, View):
 
         get_object_or_404(account_model.UserProfile, pk=user_id)
         users = account_model.UserProfile.objects.filter(id=user_id)
+        change_status_sidebar = 'user-management'
 
         profile_edit_form = account_form.ProfileEditForm(instance=account_model.UserProfile.objects.get(id=user_id))
 
         variables = {
             'users': users,
             'profile_edit_form': profile_edit_form,
+            'change_status_sidebar': change_status_sidebar,
         }
 
         return render(request, self.template_name, variables)
@@ -180,6 +208,7 @@ class EditUser(StaffPermissionMixin, View):
     def post(self, request, user_id):
         get_object_or_404(account_model.UserProfile, pk=user_id)
         users = account_model.UserProfile.objects.filter(id=user_id)
+        change_status_sidebar = 'user-management'
 
         profile_edit_form = account_form.ProfileEditForm(request.POST or None, instance=account_model.UserProfile.objects.get(id=user_id))
 
@@ -189,6 +218,7 @@ class EditUser(StaffPermissionMixin, View):
         variables = {
             'users': users,
             'profile_edit_form': profile_edit_form,
+            'change_status_sidebar': change_status_sidebar,
         }
 
         return render(request, self.template_name, variables)
@@ -203,12 +233,14 @@ class ChangeUserPassword(View):
 
         get_object_or_404(account_model.UserProfile, pk=user_id)
         users = account_model.UserProfile.objects.filter(id=user_id)
+        change_status_sidebar = 'user-management'
 
         change_user_password = forms.ChangeUserPasswordForm()
 
         variables = {
             'users': users,
             'change_user_password': change_user_password,
+            'change_status_sidebar': change_status_sidebar,
         }
 
         return render(request, self.template_name, variables)
@@ -216,6 +248,7 @@ class ChangeUserPassword(View):
     def post(self, request, user_id):
         get_object_or_404(account_model.UserProfile, pk=user_id)
         users = account_model.UserProfile.objects.filter(id=user_id)
+        change_status_sidebar = 'user-management'
 
         change_user_password = forms.ChangeUserPasswordForm(request.POST or None)
 
@@ -225,9 +258,26 @@ class ChangeUserPassword(View):
         variables = {
             'users': users,
             'change_user_password': change_user_password,
+            'change_status_sidebar': change_status_sidebar,
         }
 
         return render(request, self.template_name, variables)
+
+
+
+#staff home
+class ProductHome(StaffPermissionMixin, View):
+    template_name = 'staff/product-home.html'
+
+    def get(self, request):
+        change_status_sidebar = 'product-management'
+
+        variables = {
+            'change_status_sidebar': change_status_sidebar,
+        }
+
+        return render(request, self.template_name, variables)
+
 
 
 
@@ -238,21 +288,25 @@ class ProductAdd(StaffPermissionMixin, View):
     def get(self, request):
 
         add_product_form = forms.ProductForm()
+        change_status_sidebar = 'product-management'
 
         variables = {
             'add_product_form': add_product_form,
+            'change_status_sidebar': change_status_sidebar,
         }
 
         return render(request, self.template_name, variables)
 
     def post(self, request):
         add_product_form = forms.ProductForm(request.POST or None, request.FILES)
+        change_status_sidebar = 'product-management'
 
         if add_product_form.is_valid():
             add_product_form.deploy(request)
 
         variables = {
             'add_product_form': add_product_form,
+            'change_status_sidebar': change_status_sidebar,
         }
 
         return render(request, self.template_name, variables)

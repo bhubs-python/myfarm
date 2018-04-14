@@ -4,124 +4,121 @@
 
 
 {% block body %}
-
-    <div class="row" style="margin-bottom: 20px; margin-top: 20px;">
-        {% if users %}
-            {% for user in users %}
-            <div class="col s12 m8 offset-m2 l8 offset-l2 white" style="">
-                <div class="col s12 m12 l12" style="margin-top: 40px;">
-                    <div class="col m2">
-                        {% if user.photo %}
-                        <img src="{{ request.user.photo.url }}" width="100%" height="100%">
-                        {% else %}
-                        <img src="/media/no-img.jpg" width="100%" height="100%">
-                        {% endif %}
-                    </div>
-
-                    <div class="col m8" style="">
-                        <p style="font-size: 18px;">{{ user.username | title }}</p>
-                        <p style="font-size: 14px;">@mail : {{ user.email }}</p>
-
-                        {% if request.user.phone %}
-                            <p style="font-size: 14px;">@call : {{ user.phone }}</p>
-                        {% endif %}
-
-                        {% if user.is_staff or user.is_superuser %}
-                            <p style="font-size: 14px;">@status : <span style="color: blue;">Staff</span></p>
-                        {% endif %}
-
-                        {% if user.is_active %}
-                            <p style="font-size: 14px;">@profile : <span style="color: green;">Active</span></p>
-                        {% else %}
-                            <p style="font-size: 14px;">@profile : <span style="color: red;">Deactive</span></p>
-                        {% endif %}
-                    </div>
+    {% if users %}
+        {% for user in users %}
+        <div class="col s12 m8 offset-m2 l8 offset-l2" style="">
+            <div class="col s12 m12 l12" style="margin-top: 40px;">
+                <div class="col m2">
+                    {% if user.photo %}
+                    <img src="{{ request.user.photo.url }}" width="100%" height="100%">
+                    {% else %}
+                    <img src="/media/no-img.jpg" width="100%" height="100%">
+                    {% endif %}
                 </div>
 
-                <div class="col s12 m12 l12" style="margin-bottom: 50px; margin-top: 40px;">
-                    <p class="left" style="font-size: 22px;">Basic Information</p>
+                <div class="col m8" style="">
+                    <p style="font-size: 18px;">{{ user.username | title }}</p>
+                    <p style="font-size: 14px;">@mail : {{ user.email }}</p>
 
-                    <a href="{% url 'staff:edit-user' user_id=user.id %}" class="right" style="font-size: 14px;">edit profile</a>
-                    <p class="col s12 m12 l12 divider" style="margin-top: 5px;"></p>
+                    {% if request.user.phone %}
+                        <p style="font-size: 14px;">@call : {{ user.phone }}</p>
+                    {% endif %}
 
-                    <div class="col s12 m12 l12" style="padding: 10px; margin-top: 5px;">
-                        <p>Username : {{ user.username | title }}</p>
-                        <p>Email : {{ user.email }}</p>
-                        {% if user.phone %}
-                            <p>Phone : {{ user.phone }}</p>
-                        {% endif %}
+                    {% if user.is_staff or user.is_superuser %}
+                        <p style="font-size: 14px;">@status : <span style="color: blue;">Staff</span></p>
+                    {% endif %}
 
-                        <a href="{% url 'staff:change-user-password' user_id=user.id %}" class="waves-effect waves-light btn green white-text" style="margin-top: 20px;">Change password</a>
-
-                        <br>
-
-                        {% if user.is_active %}
-                            <a href="{% url 'staff:active-deactive-user' profile_status='deactivate' user_id=user.id %}" class="waves-effect waves-light btn red white-text" style="margin-top: 20px;">Deactivate This Account</a><br>
-                        {% else %}
-                            <a href="{% url 'staff:active-deactive-user' profile_status='activate' user_id=user.id %}" class="waves-effect waves-light btn red white-text" style="margin-top: 20px;">Activate This Account</a><br>
-                        {% endif %}
-
-
-                        {% if user.job_title or user.company or user.address or user.suit_floor_apt or user.city or user.state or user.zip_postal_code or user.country %}
-                            <p class="col s12 m12 l12 divider" style="margin-top: 20px; margin-bottom: 10px;"></p>
-                        {% endif %}
-
-                        {% if user.job_title %}
-                            <p>Job title : {{ user.job_title | title }}</p>
-                        {% endif %}
-
-                        {% if user.company %}
-                            <p>Company : {{ user.company | title }}</p>
-                        {% endif %}
-
-                        {% if user.address %}
-                            <p>Address : {{ user.address }}</p>
-                        {% endif %}
-
-                        {% if user.suit_floor_apt %}
-                            <p>Suit floor / apartment : {{ user.suit_floor_apt }}</p>
-                        {% endif %}
-
-                        {% if user.city %}
-                            <p>City : {{ user.city | title }}</p>
-                        {% endif %}
-
-                        {% if user.state %}
-                            <p>State : {{ user.state }}</p>
-                        {% endif %}
-
-                        {% if user.zip_postal_code %}
-                            <p>Zip / postal code : {{ user.zip_postal_code }}</p>
-                        {% endif %}
-
-                        {% if user.country %}
-                            <p>Country : {{ user.country }}</p>
-                        {% endif %}
-
-                        {% if user.is_active or user.is_staff or user.is_superuser %}
-                            <p class="col s12 m12 l12 divider" style="margin-top: 20px; margin-bottom: 10px;"></p>
-                        {% endif %}
-
-                        {% if user.is_staff or user.is_superuser %}
-                            <p style="font-size: 14px;">Status : <span style="color: blue;">Staff</span></p>
-                        {% endif %}
-
-                        {% if user.is_active %}
-                            <p style="font-size: 14px;">Profile : <span style="color: green;">Active</span></p>
-                        {% else %}
-                            <p style="font-size: 14px;">Profile : <span style="color: red;">Deactive</span></p>
-                        {% endif %}
-
-                        <a href="{% url 'staff:delete-user' user_id=user.id %}" class="waves-effect waves-light btn red white-text" style="margin-top: 20px;">Delete This Account</a>
-
-                    </div>
+                    {% if user.is_active %}
+                        <p style="font-size: 14px;">@profile : <span style="color: green;">Active</span></p>
+                    {% else %}
+                        <p style="font-size: 14px;">@profile : <span style="color: red;">Deactive</span></p>
+                    {% endif %}
                 </div>
             </div>
-            {% endfor %}
-        {% else %}
-            <h5>No user found!</h5>
-        {% endif %}
-    </div>
+
+            <div class="col s12 m12 l12" style="margin-bottom: 50px; margin-top: 40px;">
+                <p class="left" style="font-size: 22px;">Basic Information</p>
+
+                <a href="{% url 'staff:edit-user' user_id=user.id %}" class="right" style="font-size: 14px;">edit profile</a>
+                <p class="col s12 m12 l12 divider" style="margin-top: 5px;"></p>
+
+                <div class="col s12 m12 l12" style="padding: 10px; margin-top: 5px;">
+                    <p>Username : {{ user.username | title }}</p>
+                    <p>Email : {{ user.email }}</p>
+                    {% if user.phone %}
+                        <p>Phone : {{ user.phone }}</p>
+                    {% endif %}
+
+                    <a href="{% url 'staff:change-user-password' user_id=user.id %}" class="waves-effect waves-light btn green white-text" style="margin-top: 20px;">Change password</a>
+
+                    <br>
+
+                    {% if user.is_active %}
+                        <a href="{% url 'staff:active-deactive-user' profile_status='deactivate' user_id=user.id %}" class="waves-effect waves-light btn red white-text" style="margin-top: 20px;">Deactivate This Account</a><br>
+                    {% else %}
+                        <a href="{% url 'staff:active-deactive-user' profile_status='activate' user_id=user.id %}" class="waves-effect waves-light btn red white-text" style="margin-top: 20px;">Activate This Account</a><br>
+                    {% endif %}
+
+
+                    {% if user.job_title or user.company or user.address or user.suit_floor_apt or user.city or user.state or user.zip_postal_code or user.country %}
+                        <p class="col s12 m12 l12 divider" style="margin-top: 20px; margin-bottom: 10px;"></p>
+                    {% endif %}
+
+                    {% if user.job_title %}
+                        <p>Job title : {{ user.job_title | title }}</p>
+                    {% endif %}
+
+                    {% if user.company %}
+                        <p>Company : {{ user.company | title }}</p>
+                    {% endif %}
+
+                    {% if user.address %}
+                        <p>Address : {{ user.address }}</p>
+                    {% endif %}
+
+                    {% if user.suit_floor_apt %}
+                        <p>Suit floor / apartment : {{ user.suit_floor_apt }}</p>
+                    {% endif %}
+
+                    {% if user.city %}
+                        <p>City : {{ user.city | title }}</p>
+                    {% endif %}
+
+                    {% if user.state %}
+                        <p>State : {{ user.state }}</p>
+                    {% endif %}
+
+                    {% if user.zip_postal_code %}
+                        <p>Zip / postal code : {{ user.zip_postal_code }}</p>
+                    {% endif %}
+
+                    {% if user.country %}
+                        <p>Country : {{ user.country }}</p>
+                    {% endif %}
+
+                    {% if user.is_active or user.is_staff or user.is_superuser %}
+                        <p class="col s12 m12 l12 divider" style="margin-top: 20px; margin-bottom: 10px;"></p>
+                    {% endif %}
+
+                    {% if user.is_staff or user.is_superuser %}
+                        <p style="font-size: 14px;">Status : <span style="color: blue;">Staff</span></p>
+                    {% endif %}
+
+                    {% if user.is_active %}
+                        <p style="font-size: 14px;">Profile : <span style="color: green;">Active</span></p>
+                    {% else %}
+                        <p style="font-size: 14px;">Profile : <span style="color: red;">Deactive</span></p>
+                    {% endif %}
+
+                    <a href="{% url 'staff:delete-user' user_id=user.id %}" class="waves-effect waves-light btn red white-text" style="margin-top: 20px;">Delete This Account</a>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <h5>No user found!</h5>
+    {% endif %}
     <!--end sign up form-->
 
 {% endblock %}

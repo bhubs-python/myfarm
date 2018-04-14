@@ -1,0 +1,19 @@
+{% extends 'staff-base.html' %}
+
+{% block title %} MyFarm | Staff {% endblock %}
+
+
+{% block body %}
+    <div class="col m8 offset-m2 white" style="padding: 20px; margin-top: 20px; margin-bottom: 20px;">
+        <h5>User management</h5>
+
+        <p class="col s12 m12 l12 divider">
+
+        </p>
+
+        <a href="{% url 'staff:all-user' %}" class="waves-effect waves-light btn red white-text" style="margin-top: 20px;">All user</a>
+        <a href="{% url 'account:sign-out' %}" class="waves-effect waves-light btn red white-text" style="margin-top: 20px;">Search user</a>
+
+
+    </div>
+{% endblock %}
