@@ -62,6 +62,11 @@
                     <form class="col s12 m10 offset-m1 l10 offset-l1" method="post" style="margin-top: 50px; margin-bottom: 50px;">
                         {% csrf_token %}
 
+                        <div class="input-field col s12 m12 l12">
+                            {{ sign_up_form.member_type }}
+                            <label>Register as</label>
+                        </div>
+
                         <div class="input-field col s12 m6 l6">
                             <i class="material-icons prefix">account_circle</i>
                             {{ sign_up_form.username }}
@@ -172,3 +177,12 @@
     <script type="text/javascript" src="{% static 'account/js/materialize.min.js' %}"></script>
 </body>
 </html>
+
+
+{% block js %}
+    <script>
+        $(document).ready(function() {
+            $('select').material_select();
+        });
+    </script>
+{% endblock %}

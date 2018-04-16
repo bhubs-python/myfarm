@@ -24,6 +24,12 @@ INSTALLED_APPS = [
 
     #staff config
     'staff.apps.StaffConfig',
+
+    #investor config
+    'investor.apps.InvestorConfig',
+
+    #farmer
+    'farmer.apps.FarmerConfig',
 ]
 
 MIDDLEWARE = [

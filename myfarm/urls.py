@@ -14,6 +14,12 @@ urlpatterns = [
     #staff
     url(r'^staff/', include('staff.urls', namespace='staff')),
 
+    #investor
+    url(r'^investor/', include('investor.urls', namespace='investor')),
+
+    #farmer
+    url(r'^farmer/', include('farmer.urls', namespace='farmer')),
+
     #password reset
     url(r'^account/recover-password/$', auth_views.password_reset, {'template_name': 'account/password_reset.html', 'email_template_name': 'account/password_reset_email.html'}, name='password_reset'),
     url(r'^account/recover-password/done/$', auth_views.password_reset_done, {'template_name': 'account/password_reset_done.html'}, name='password_reset_done'),

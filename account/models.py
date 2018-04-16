@@ -4,11 +4,19 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
 
 
+#member type
+class MemberType(models.Model):
+    name = models.CharField(max_length=20, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+
 # user profile manager
 class UserProfileManager(BaseUserManager):
     """Helps django work with our custom user model"""
 
-    def create_user(self, username, email, phone=None, photo=None, job_title=None, company=None, address=None, suit_floor_apt=None, city=None, state=None, zip_postal_code=None, country=None, password=None):
+    def create_user(self, member_type, username, email, phone=None, photo=None, job_title=None, company=None, address=None, suit_floor_apt=None, city=None, state=None, zip_postal_code=None, country=None, password=None):
         """creates a new user profile objecs"""
 
         if not email:
@@ -18,7 +26,7 @@ class UserProfileManager(BaseUserManager):
             raise ValueError('User must have an username!')
 
         email = self.normalize_email(email)
-        user = self.model(username=username, email=email, phone=phone, photo=photo, job_title=job_title, company=company, address=address, suit_floor_apt=suit_floor_apt, city=city, state=state, zip_postal_code=zip_postal_code, country=country)
+        user = self.model(member_type=member_type, username=username, email=email, phone=phone, photo=photo, job_title=job_title, company=company, address=address, suit_floor_apt=suit_floor_apt, city=city, state=state, zip_postal_code=zip_postal_code, country=country)
 
         user.set_password(password)
         user.save(using=self._db)
@@ -44,6 +52,7 @@ class UserProfileManager(BaseUserManager):
 class UserProfile(AbstractBaseUser, PermissionsMixin):
     """Represents a user profile inside our system"""
 
+    member_type = models.ForeignKey(MemberType, on_delete=models.CASCADE, null=True, blank=True)
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=255, unique=True)
     phone = models.CharField(max_length=255, null=True, blank=True)

@@ -98,10 +98,10 @@
                         <p class="" style="font-size: 16px;">
                             <a class="" href="{% url 'staff:user-home' %}">
                                 {% if change_status_sidebar == 'user-management' %}
-                                <span class="left white-text">User Management</span>
+                                <span class="left white-text">My investment</span>
                                 <span class="right white-text"> > </span>
                                 {% else %}
-                                <span class="left">User Management</span>
+                                <span class="left">My investment</span>
                                 <span class="right"> > </span>
                                 {% endif %}
                             </a>
@@ -112,10 +112,10 @@
                         <p class="" style="font-size: 16px;">
                             <a class="" href="{% url 'staff:product-home' %}">
                                 {% if change_status_sidebar == 'product-management' %}
-                                <span class="left white-text">Product</span>
+                                <span class="left white-text">Credit</span>
                                 <span class="right white-text"> > </span>
                                 {% else %}
-                                <span class="left">Product</span>
+                                <span class="left">Credit</span>
                                 <span class="right"> > </span>
                                 {% endif %}
                             </a>
@@ -125,16 +125,7 @@
                     <div class="col m12" style="">
                         <p class="" style="font-size: 16px;">
                             <a class="" href="">
-                                <span class="left">Payment</span>
-                                <span class="right"> > </span>
-                            </a>
-                        </p>
-                    </div>
-
-                    <div class="col m12" style="">
-                        <p class="" style="font-size: 16px;">
-                            <a class="" href="">
-                                <span class="left">Pull Request</span>
+                                <span class="left">Message</span>
                                 <span class="right"> > </span>
                             </a>
                         </p>
@@ -371,7 +362,6 @@
 
 
     $(document).ready(function(){
-        //var username = $("#login_username").val();
         var username = '{{ request.user.username }}';
 
         $.ajax({
@@ -379,8 +369,7 @@
                 data: { "username":username },
                 dataType: 'json',
                 success: function (data) {
-                    console.log(data.data[0].is_superuser);
-                    //$("#login_user_sponsor").attr("href","/account/membership-account/public-profile/?userid="+data.data[0].sponsor_username);
+                    console.log(data.member_type);
 
                     if(data.data[0].photo != null){
                         $("#top_user_image").attr("src", data.data[0].photo);
@@ -390,8 +379,8 @@
 
                     $("#top_username").append(data.data[0].username);
 
-                    if(data.data[0].is_superuser == true){
-                        $("#top_status").append("Staff");
+                    if(data.member_type == 'investor'){
+                        $("#top_status").append("Investor");
                     }
                 }
         });

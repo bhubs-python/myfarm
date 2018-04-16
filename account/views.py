@@ -175,6 +175,10 @@ class UserProfileAPI(APIView):
             serializer = None
             x = 'User authorized'
 
+            member_type = None
+            for user_member_types in userObj:
+                member_type = user_member_types.member_type.name
+
             if request.user.is_authenticated() and request.user.username == username:
                 serializer = serializers.UserProfileSerializer(userObj, many=True).data
             else:
@@ -183,5 +187,6 @@ class UserProfileAPI(APIView):
             return Response({
                 'data': serializer,
                 'x': x,
+                'member_type': member_type,
             })
 
