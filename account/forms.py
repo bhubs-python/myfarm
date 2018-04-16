@@ -10,7 +10,7 @@ from . import models
 
 # user registration form
 class RegistrationForm(forms.Form):
-    member_type = forms.ModelChoiceField(queryset=models.MemberType.objects.all(), required=False,widget=forms.Select(attrs={'class':'input-field'}))
+    #member_type = forms.ModelChoiceField(queryset=models.MemberType.objects.all(), required=False,widget=forms.Select(attrs={'class':'input-field'}))
     username = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
     email = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate', 'id': 'email'}))
     phone = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
@@ -30,7 +30,6 @@ class RegistrationForm(forms.Form):
 
 
     def clean(self):
-        member_type = self.cleaned_data.get('member_type')
         username = self.cleaned_data.get('username')
         email = self.cleaned_data.get('email')
         phone = self.cleaned_data.get('phone')
@@ -48,37 +47,34 @@ class RegistrationForm(forms.Form):
         password1 = self.cleaned_data.get('password1')
         password2 = self.cleaned_data.get('password2')
 
-        if member_type == None:
-            raise forms.ValidationError('Select member type!')
+
+        if len(username) < 1:
+            raise forms.ValidationError("Enter username!")
         else:
-            if len(username) < 1:
-                raise forms.ValidationError("Enter username!")
+            user_exist = models.UserProfile.objects.filter(username__iexact=username).exists()
+            if user_exist:
+                raise forms.ValidationError("Username already taken!")
             else:
-                user_exist = models.UserProfile.objects.filter(username__iexact=username).exists()
-                if user_exist:
-                    raise forms.ValidationError("Username already taken!")
+                if len(email) < 1:
+                    raise forms.ValidationError("Enter email address!")
                 else:
-                    if len(email) < 1:
-                        raise forms.ValidationError("Enter email address!")
+                    email_correction = re.match('^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', email)
+                    if email_correction == None:
+                        raise forms.ValidationError("Email not correct!")
                     else:
-                        email_correction = re.match('^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', email)
-                        if email_correction == None:
-                            raise forms.ValidationError("Email not correct!")
+                        email_exist = models.UserProfile.objects.filter(email__iexact=email).exists()
+                        if email_exist:
+                            raise forms.ValidationError("Email already exist!")
                         else:
-                            email_exist = models.UserProfile.objects.filter(email__iexact=email).exists()
-                            if email_exist:
-                                raise forms.ValidationError("Email already exist!")
+                            if len(password1) < 8:
+                                raise forms.ValidationError("Password is too short!")
                             else:
-                                if len(password1) < 8:
-                                    raise forms.ValidationError("Password is too short!")
-                                else:
-                                    if password1 != password2:
-                                        raise forms.ValidationError("Password not matched!")
+                                if password1 != password2:
+                                    raise forms.ValidationError("Password not matched!")
 
 
 
-    def registration(self):
-        member_type = self.cleaned_data.get('member_type')
+    def registration(self, request):
         username = self.cleaned_data.get('username')
         email = self.cleaned_data.get('email')
         phone = self.cleaned_data.get('phone')
@@ -97,8 +93,15 @@ class RegistrationForm(forms.Form):
         password1 = self.cleaned_data.get('password1')
         password2 = self.cleaned_data.get('password2')
 
-        user = models.UserProfile.objects.create_user(member_type=member_type, username=username, email=email, phone=phone, job_title=job_title, company=company, address=address, suit_floor_apt=suit_floor_apt, city=city, state=state, zip_postal_code=zip_postal_code, country=country)
+        member_type = request.POST.get('member_type')
+
+        user = models.UserProfile.objects.create_user(username=username, email=email, phone=phone, job_title=job_title, company=company, address=address, suit_floor_apt=suit_floor_apt, city=city, state=state, zip_postal_code=zip_postal_code, country=country)
         user.set_password(password1)
+
+        if member_type == 'investor':
+            user.investor = True
+        elif member_type == 'farmer':
+            user.farmer = True
 
         user.save()
 

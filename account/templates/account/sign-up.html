@@ -62,18 +62,32 @@
                     <form class="col s12 m10 offset-m1 l10 offset-l1" method="post" style="margin-top: 50px; margin-bottom: 50px;">
                         {% csrf_token %}
 
-                        <div class="input-field col s12 m12 l12">
+                        <!--<div class="input-field col s12 m12 l12">
                             {{ sign_up_form.member_type }}
                             <label>Register as</label>
+                        </div>-->
+
+                        <div class="col s12 m12 l12 left-align">
+                            <h5>Register as</h5>
+
+                            <p class="left" style="margin-right: 40px; margin-left: 10px; margin-top: 20px;">
+                                <input name="member_type" value="investor" type="radio" id="investor" />
+                                <label for="investor">Investor</label>
+                            </p>
+
+                            <p class="left" style="margin-top: 20px;">
+                                <input name="member_type" value="farmer" type="radio" checked id="farmer" />
+                                <label for="farmer">Farmer</label>
+                            </p>
                         </div>
 
-                        <div class="input-field col s12 m6 l6">
+                        <div class="input-field col s12 m6 l6" style="margin-top: 20px;">
                             <i class="material-icons prefix">account_circle</i>
                             {{ sign_up_form.username }}
                             <label for="icon_prefix white-text">User Name</label>
                         </div>
 
-                        <div class="input-field col s12 m6 l6">
+                        <div class="input-field col s12 m6 l6" style="margin-top: 20px;">
                             <i class="material-icons prefix">email</i>
                             {{ sign_up_form.email }}
                             <label for="icon_prefix white-text">Email</label>
@@ -180,9 +194,5 @@
 
 
 {% block js %}
-    <script>
-        $(document).ready(function() {
-            $('select').material_select();
-        });
-    </script>
+
 {% endblock %}

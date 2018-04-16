@@ -7,9 +7,7 @@ from account import models as account_model
 #permission mixin
 class InvestorPermissionMixin(object):
     def has_permissions(self, request):
-        if request.user.member_type == None:
-            return False
-        return request.user.member_type.name == 'investor'
+        return request.user.investor == True
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
