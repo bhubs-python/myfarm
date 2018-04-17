@@ -1,0 +1,32 @@
+{% extends 'investor-base.html' %}
+
+{% block title %} MyFarm | Investor {% endblock %}
+
+
+{% block body %}
+    <div class="col m10 offset-m1" style="padding: 20px; margin-top: 20px; margin-bottom: 20px;">
+        <h5>Credit: {{ my_wallet.credit }} BDT</h5>
+
+        <p class="col s12 m12 l12 divider">
+
+        </p>
+
+        <a href="{% url 'investor:credit-recharge' %}" class="btn waves-effect waves-light black" style="margin-top: 30px;">
+            Recharge Credit
+        </a>
+
+        <a href="{% url 'investor:pending-recharge' %}" class="btn waves-effect waves-light black" style="margin-top: 30px;">
+            Pending Recharge
+        </a>
+
+        <a class="btn waves-effect waves-light black" style="margin-top: 30px;">
+            Recharge History
+        </a>
+        <br>
+
+        <a class="btn waves-effect waves-light black" style="margin-top: 30px;">
+            Transaction History
+        </a>
+
+    </div>
+{% endblock %}

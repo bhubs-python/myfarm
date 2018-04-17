@@ -1,0 +1,24 @@
+{% extends 'staff-base.html' %}
+
+{% block title %} MyFarm | Staff {% endblock %}
+
+
+{% block body %}
+    <div class="col m10 offset-m1" style="padding: 20px; margin-top: 20px; margin-bottom: 20px;">
+        <h5>Payment Dashboard</h5>
+
+        <p class="col s12 m12 l12 divider">
+
+        </p>
+
+        <a href="{% url 'staff:payment-pending-recharge' %}" class="btn waves-effect waves-light black" style="margin-top: 30px;">
+            Pending Recharge
+        </a>
+
+        <a class="btn waves-effect waves-light black" style="margin-top: 30px;">
+            Recharge History
+        </a>
+        <br>
+
+    </div>
+{% endblock %}

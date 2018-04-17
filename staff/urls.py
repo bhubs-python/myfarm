@@ -23,4 +23,13 @@ urlpatterns = [
 
     #product block end
 
+    #payment block start
+    url(r'^payment/home/$', views.PaymentHome.as_view(), name='payment-home'),
+    url(r'^payment/pending/recharge/$', views.PaymentPendingRecharge.as_view(), name='payment-pending-recharge'),
+    url(r'^payment/pending/recharge//$', views.PaymentPendingRecharge.as_view(), name='payment-pending-recharge'),
+    url(r'^payment/recharge/pending/(?P<credit_recharge_id>[0-9]+)/$', views.PendingRechargeDetail.as_view(), name='payment-pending-recharge-detail'),
+    #url(r'^product/add/$', views.ProductAdd.as_view(), name='product-add'),
+
+    #payment block end
+
 ]

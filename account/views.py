@@ -40,7 +40,7 @@ class SignUp(View):
 
         if sign_up_form.is_valid():
             sign_up_form.registration(request)
-            #return redirect('account:sign-in')
+            return redirect('account:sign-in')
 
         variables = {
             'sign_up_form': sign_up_form,
@@ -174,6 +174,10 @@ class UserProfileAPI(APIView):
 
             serializer = None
             x = 'User authorized'
+            
+            my_wallet = models.Credit.objects.get(user=userObj)
+
+            my_balance = my_wallet.credit
 
             if request.user.is_authenticated() and request.user.username == username:
                 serializer = serializers.UserProfileSerializer(userObj, many=True).data
@@ -183,5 +187,6 @@ class UserProfileAPI(APIView):
             return Response({
                 'data': serializer,
                 'x': x,
+                'credit': my_balance,
             })
 

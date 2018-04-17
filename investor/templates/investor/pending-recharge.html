@@ -1,0 +1,59 @@
+{% extends 'investor-base.html' %}
+
+{% block title %} MyFarm | Investor {% endblock %}
+
+
+{% block body %}
+    <div class="col m10 offset-m1" style="padding: 20px; margin-top: 20px; margin-bottom: 20px;">
+        <h5>Pending Recharge List</h5>
+
+        <p class="col s12 m12 l12 divider">
+
+        </p>
+
+        <div class="col s12 m12 l12" style="margin-top: 20px;">
+            <table class="highlight centered responsive-table">
+                <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Date</th>
+                        <th>Payment Method</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Operation</th>
+                    </tr>
+                </thead>
+
+                <tbody class="table_data">
+                    {% for pending_recharge in pending_recharges %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ pending_recharge.date }}</td>
+
+                        <td>
+                            {% if pending_recharge.method == 'bkash' %}
+                                BKASH
+                            {% endif %}
+
+                            {% if pending_recharge.method == 'dbbl_rocket' %}
+                                DBBL/ROCKET
+                            {% endif %}
+                        </td>
+
+                        <td>{{ pending_recharge.credit }}</td>
+
+                        <td>
+                            {{ pending_recharge.status }}
+                        </td>
+
+                        <td>
+                            <a href="{% url 'investor:pending-recharge-detail' credit_recharge_id=pending_recharge.id %}">View</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+{% endblock %}

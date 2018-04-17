@@ -308,3 +308,120 @@ class ProductAdd(StaffPermissionMixin, View):
         }
 
         return render(request, self.template_name, variables)
+
+
+
+
+#==================================================================================
+#==================================================================================
+#                                payment
+#==================================================================================
+#==================================================================================
+
+
+
+#credit home
+class PaymentHome(StaffPermissionMixin, View):
+    template_name = 'staff/payment-home.html'
+
+    def get(self, request):
+        change_status_sidebar = 'payment'
+
+        my_wallet = account_model.Credit.objects.get(user=request.user)
+
+        variables = {
+            'change_status_sidebar': change_status_sidebar,
+
+            'my_wallet': my_wallet,
+        }
+
+        return render(request, self.template_name, variables)
+
+
+
+#payment pending
+class PaymentPendingRecharge(StaffPermissionMixin, View):
+    template_name = 'staff/payment-pending-recharge.html'
+
+    def get(self, request):
+        change_status_sidebar = 'payment'
+
+        pending_recharges = account_model.CreditRecharge.objects.filter(status='pending')
+
+        variables = {
+            'change_status_sidebar': change_status_sidebar,
+
+            'pending_recharges': pending_recharges,
+        }
+
+        return render(request, self.template_name, variables)
+
+
+
+
+#pending recharge detail
+class PendingRechargeDetail(StaffPermissionMixin, View):
+    template_name = 'staff/payment-pending-recharge-detail.html'
+
+    def get(self, request, credit_recharge_id):
+        pending_recharge = get_object_or_404(account_model.CreditRecharge, id=credit_recharge_id)
+
+        change_status_sidebar = 'payment'
+
+        variables = {
+            'change_status_sidebar': change_status_sidebar,
+
+            'pending_recharge': pending_recharge,
+        }
+
+        return render(request, self.template_name, variables)
+
+    def post(self, request, credit_recharge_id):
+        pending_recharge = get_object_or_404(account_model.CreditRecharge, id=credit_recharge_id)
+        new_recharge = pending_recharge.credit
+
+        get_user_wallet = account_model.Credit.objects.get(user=pending_recharge.user)
+        previous_credit = get_user_wallet.credit
+
+        new_credit = previous_credit + new_recharge
+
+        change_status_sidebar = 'payment'
+
+        if request.POST.get('authorize') == 'authorize':
+            pending_recharge.status = 'authorized'
+            pending_recharge.authorized_by = request.user
+            pending_recharge.save()
+
+            get_user_wallet.credit = new_credit
+            get_user_wallet.save()
+
+            about_payment_details = "This is the payment recharge of users account via %s. The CreditRecharge model id is %f." %(pending_recharge.method, pending_recharge.id)
+
+            add_to_payment_note = account_model.PaymentNote(user=pending_recharge.user, amount=new_recharge, status='credit', about_payment=about_payment_details)
+            add_to_payment_note.save()
+
+        elif request.POST.get('reject') == 'reject':
+            pending_recharge.status = 'rejected'
+            pending_recharge.authorized_by = request.user
+            pending_recharge.save()
+
+            about_payment_details = "This payment recharge of users account via %s is rejected. The CreditRecharge model id is %d." %(pending_recharge.method, pending_recharge.id)
+
+            add_to_payment_note = account_model.PaymentNote(user=pending_recharge.user, amount=new_recharge, status='rejected', about_payment=about_payment_details)
+            add_to_payment_note.save()
+
+        variables = {
+            'change_status_sidebar': change_status_sidebar,
+
+            'pending_recharge': pending_recharge,
+        }
+
+        return render(request, self.template_name, variables)
+
+
+
+#==================================================================================
+#==================================================================================
+#                               end payment
+#==================================================================================
+#==================================================================================

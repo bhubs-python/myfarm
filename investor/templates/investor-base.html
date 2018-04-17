@@ -84,7 +84,7 @@
                 <div class="col m12 indigo darken-4" style="padding: 20px;">
                     <div class="col m12" style="">
                         <p class="" style="font-size: 16px;">
-                            <a href="{% url 'staff:home' %}">
+                            <a href="{% url 'investor:home' %}">
                                 {% if change_status_sidebar == 'dashboard' %}
                                 <span class="white-text">Dashboard</span>
                                 {% else %}
@@ -110,8 +110,8 @@
 
                     <div class="col m12" style="">
                         <p class="" style="font-size: 16px;">
-                            <a class="" href="{% url 'staff:product-home' %}">
-                                {% if change_status_sidebar == 'product-management' %}
+                            <a class="" href="{% url 'investor:credit-home' %}">
+                                {% if change_status_sidebar == 'credit' %}
                                 <span class="left white-text">Credit</span>
                                 <span class="right white-text"> > </span>
                                 {% else %}
@@ -140,8 +140,9 @@
                 <nav class="#9fa8da indigo lighten-3">
                     <div class="nav-wrapper">
                         <ul id="nav-mobile" class="right hide-on-med-and-down">
-                            <li><a href="sass.html">Profile</a></li>
-                            <li><a href="badges.html">Message</a></li>
+                            <li><a href="#" style="color: black;" id="top_my_credit"></a></li>
+                            <li><a href="#">Profile</a></li>
+                            <li><a href="#">Message</a></li>
                             <li><a href="{% url 'account:sign-out' %}">Sign out</a></li>
                         </ul>
                     </div>
@@ -369,7 +370,7 @@
                 data: { "username":username },
                 dataType: 'json',
                 success: function (data) {
-
+                    console.log(data);
                     if(data.data[0].photo != null){
                         $("#top_user_image").attr("src", data.data[0].photo);
                     }else{
@@ -377,6 +378,7 @@
                     }
 
                     $("#top_username").append(data.data[0].username);
+                    $("#top_my_credit").append(data.credit + " BDT");
 
                     if(data.data[0].investor == true){
                         $("#top_status").append("Investor");

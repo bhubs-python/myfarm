@@ -10,7 +10,6 @@ from . import models
 
 # user registration form
 class RegistrationForm(forms.Form):
-    #member_type = forms.ModelChoiceField(queryset=models.MemberType.objects.all(), required=False,widget=forms.Select(attrs={'class':'input-field'}))
     username = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
     email = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate', 'id': 'email'}))
     phone = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
@@ -23,7 +22,6 @@ class RegistrationForm(forms.Form):
     city = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
     state = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
     zip_postal_code = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
-    country = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'class': 'validate'}))
 
     password1 = forms.CharField(max_length=20, required=False, widget=forms.PasswordInput(attrs={'class': 'validate'}))
     password2 = forms.CharField(max_length=20, required=False, widget=forms.PasswordInput(attrs={'class': 'validate', 'id': 'password'}))
@@ -42,7 +40,6 @@ class RegistrationForm(forms.Form):
         city = self.cleaned_data.get('city')
         state = self.cleaned_data.get('state')
         zip_postal_code = self.cleaned_data.get('zip_postal_code')
-        country = self.cleaned_data.get('country')
 
         password1 = self.cleaned_data.get('password1')
         password2 = self.cleaned_data.get('password2')
@@ -88,14 +85,13 @@ class RegistrationForm(forms.Form):
         city = self.cleaned_data.get('city')
         state = self.cleaned_data.get('state')
         zip_postal_code = self.cleaned_data.get('zip_postal_code')
-        country = self.cleaned_data.get('country')
 
         password1 = self.cleaned_data.get('password1')
         password2 = self.cleaned_data.get('password2')
 
         member_type = request.POST.get('member_type')
 
-        user = models.UserProfile.objects.create_user(username=username, email=email, phone=phone, job_title=job_title, company=company, address=address, suit_floor_apt=suit_floor_apt, city=city, state=state, zip_postal_code=zip_postal_code, country=country)
+        user = models.UserProfile.objects.create_user(username=username, email=email, phone=phone, job_title=job_title, company=company, address=address, suit_floor_apt=suit_floor_apt, city=city, state=state, zip_postal_code=zip_postal_code)
         user.set_password(password1)
 
         if member_type == 'investor':
@@ -141,7 +137,7 @@ class ProfileEditForm(forms.ModelForm):
 
     class Meta:
         model = models.UserProfile
-        fields = ('phone', 'photo', 'job_title', 'company', 'address', 'suit_floor_apt', 'city', 'state', 'zip_postal_code', 'country')
+        fields = ('phone', 'photo', 'job_title', 'company', 'address', 'suit_floor_apt', 'city', 'state', 'zip_postal_code')
 
 
 

@@ -1,0 +1,89 @@
+{% extends 'investor-base.html' %}
+
+{% block title %} MyFarm | Investor {% endblock %}
+
+
+{% block body %}
+    <div class="col m10 offset-m1" style="padding: 20px; margin-top: 20px; margin-bottom: 20px;">
+        <h5>Credit Recharge</h5>
+
+        <p class="col s12 m12 l12 divider">
+
+        </p>
+
+        <div class="col s12 m12 l12" style="margin-top: 10px;">
+            <div class="card blue">
+                <div class="card-content white-text">
+                    <span class="card-title">Recharge From BKASH</span>
+                    <p>
+                        Our BKASH number is : 01XXXXXXXXX.<br>
+                        You need to send money to this BKASH number from your BKASH number. Then BKASH
+                        gives you unique TRANSACTION ID. With That TRANSACTION ID and your BKASH number ,just fill the
+                         form correctly. We AUTHORIZE your transaction amount and credited to your account.
+                    </p>
+                </div>
+
+                <div class="divider white">
+
+                </div>
+
+                <div class="card-content white-text">
+                    <span class="card-title">Recharge From DBBL/ROCKET</span>
+                    <p>
+                        Our DBBL/ROCKET number is : 01XXXXXXXXXX.<br>
+                        You need to send money to this DBBL/ROCKET number from your DBBL/ROCKET number. Then DBBL/ROCKET
+                        gives you unique TRANSACTION ID. With That TRANSACTION ID and your DBBL/ROCKET number ,just fill the
+                         form correctly. We AUTHORIZE your transaction amount and credited to your account.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <form class="col s12 m10 offset-m1 l10 offset-l1" method="post" style="margin-top: 50px; margin-bottom: 50px;">
+            {% csrf_token %}
+
+            <div class="col s12 m12 l12">
+                <label>Payment Method</label>
+                {{ recharge_form.method }}
+            </div>
+
+            <div class="input-field col s12 m12 l12" style="margin-top: 20px;">
+                <i class="material-icons prefix">phone</i>
+                {{ recharge_form.sender_phone_number }}
+                <label for="icon_prefix white-text">Sender Phone Number</label>
+            </div>
+
+            <div class="input-field col s12 m12 l12" style="margin-top: 20px;">
+                <i class="material-icons prefix">equalizer</i>
+                {{ recharge_form.transaction_id }}
+                <label for="icon_prefix white-text">Transaction ID</label>
+            </div>
+
+
+            <div class="input-field col s12 m12 l12">
+                <i class="material-icons prefix">attach_money</i>
+                {{ recharge_form.credit }}
+                <label for="icon_prefix white-text">Credit Amount</label>
+            </div>
+
+            {% if recharge_form.non_field_errors %}
+                {% for error in recharge_form.non_field_errors %}
+                    <div class="col s12 m10 offset-m1 l10 offset-l1 valign-wrapper" style="margin-top: 20px; background-color: red; height: 40px;">
+                        <p style="color: white; font-size: 16px;">
+                            {{ error }}
+                        </p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="col s12 m12 l12" style="margin-bottom: 20px; margin-top: 20px;">
+                <button class="btn waves-effect waves-light black" type="submit" style="">Recharge
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </form>
+
+    </div>
+{% endblock %}
+

@@ -51,7 +51,7 @@
 
                     <a href="{% url 'account:change-password' %}" class="waves-effect waves-light btn green white-text" style="margin-top: 20px;">Change password</a>
 
-                    {% if request.user.job_title or request.user.company or request.user.address or request.user.suit_floor_apt or request.user.city or request.user.state or request.user.zip_postal_code or request.user.country %}
+                    {% if request.user.job_title or request.user.company or request.user.address or request.user.suit_floor_apt or request.user.city or request.user.state or request.user.zip_postal_code %}
                         <p class="col s12 m12 l12 divider" style="margin-top: 20px; margin-bottom: 10px;"></p>
                     {% endif %}
 
@@ -81,10 +81,6 @@
 
                     {% if request.user.zip_postal_code %}
                         <p>Zip / postal code : {{ request.user.zip_postal_code }}</p>
-                    {% endif %}
-
-                    {% if request.user.country %}
-                        <p>Country : {{ request.user.country }}</p>
                     {% endif %}
 
                     {% if request.user.is_active or request.user.is_staff or request.user.is_superuser %}

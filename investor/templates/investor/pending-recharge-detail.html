@@ -1,0 +1,39 @@
+{% extends 'investor-base.html' %}
+
+{% block title %} MyFarm | Investor {% endblock %}
+
+
+{% block body %}
+    <div class="col m10 offset-m1" style="padding: 20px; margin-top: 20px; margin-bottom: 20px;">
+        <h5>Pending Recharge Detail</h5>
+
+        <p class="col s12 m12 l12 divider">
+
+        </p>
+
+        <div class="col s12 m12 l12" style="margin-top: 20px;">
+            <p>Recharge Date: {{  pending_recharge.date }}</p>
+
+            <p>Payment Method :
+                {% if pending_recharge.method == 'bkash' %}
+                BKASH
+                {% endif %}
+
+                {% if pending_recharge.method == 'dbbl_rocket' %}
+                DBBL/ROCKET
+                {% endif %}
+            </p>
+
+            <p>Sender Phone Number: {{ pending_recharge.sender_phone_number }}</p>
+            <p>Transaction ID: {{ pending_recharge.transaction_id }}</p>
+            <p>Credit Amount: {{ pending_recharge.credit }} BDT</p>
+
+            {% if pending_recharge.status == 'pending' %}
+                <p>Payment Status: <span style="color: red;">{{ pending_recharge.status | title }}</span></p>
+            {% else %}
+                <p>Payment Status: <span style="color: green;">{{ pending_recharge.status | title }}</span></p>
+            {% endif %}
+        </div>
+
+    </div>
+{% endblock %}

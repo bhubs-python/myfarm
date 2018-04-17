@@ -124,9 +124,14 @@
 
                     <div class="col m12" style="">
                         <p class="" style="font-size: 16px;">
-                            <a class="" href="">
+                            <a class="" href="{% url 'staff:payment-home' %}">
+                                {% if change_status_sidebar == 'payment' %}
+                                <span class="left white-text">Payment</span>
+                                <span class="right white-text"> > </span>
+                                {% else %}
                                 <span class="left">Payment</span>
                                 <span class="right"> > </span>
+                                {% endif %}
                             </a>
                         </p>
                     </div>
